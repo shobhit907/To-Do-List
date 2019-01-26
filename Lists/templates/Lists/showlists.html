@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+Lists
+{% endblock %}
+{% block body %}
+    <p>Lists</p>
+    <ul>
+    <a href="{% url 'Lists:createList' %}"><input type="submit" value="Create a new list"></a></br>
+    {% for item in lists %}
+        <li>
+            <h2>{{item.name}}</h2>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

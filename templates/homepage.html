@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+Welcome to my website
+{% endblock title %}
+
+{% block body %}
+    <p>Welcome</p>
+    <p>You can create a To-Do list here</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'Lists:showLists' %}"><input type="button" value="Show All Lists"></a>
+        <a href="{% url 'Lists:createList' %}"><input type="button" value="Create a new list"></a>
+    {% endif %}
+{% endblock body %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+Add Item
+{% endblock title %}
+{% block body %}
+    <h2>Add an item to the list</h2>
+    <form class="" action="{% url 'list:additem' %}" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <br>
+            {{field.label}}
+            <br>
+            {% ifequal field.name 'todo_date' %}
+                <input type="datetime" name="todo_date" id="todo_date">
+            {% else %}
+                {{field}}
+            {% endifequal %}
+            <br>
+            <br>
+        {% endfor %}
+        </br>
+        <!-- {{form}} -->
+        <input type="submit" value="Add Item">
+    </form>
+{% endblock body%}
