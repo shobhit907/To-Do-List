@@ -8,7 +8,7 @@ Lists
     <a href="{% url 'Lists:createList' %}"><input type="submit" value="Create a new list"></a></br>
     {% for item in lists %}
         <li>
-            <h2>{{item.name}}</h2>
+            <h2><a href="{% url 'Lists:displayList' slug=item.slug %}">{{item.name}}</a></h2>
         </li>
     {% endfor %}
     </ul>

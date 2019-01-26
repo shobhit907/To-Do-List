@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}
+List
+{% endblock %}
+{% block body %}
+    <ul>
+    <a href="{% url 'list:additem' %}"><input type="submit" value="Add a new task"></a></br>
+    {% for item in list %}
+        <li>
+            <h2>{{item.lists.title}}</h2>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
