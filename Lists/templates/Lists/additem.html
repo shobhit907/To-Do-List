@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+Add new task
+{% endblock title %}
+{% block body %}
+    <h2>Add a new task</h2>
+    <form class="" action="{% url 'Lists:addItem' slug=slugoflist %}" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Add Task">
+    </form>
+{% endblock body%}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}
+Task
+{% endblock %}
+{% block body %}
+    <p>Task</p>
+    <h2>{{item.title}}</h2>
+    <p>{{item.description}}</p>
+    <p>Created Date & Time : {{item.created_date}}</p>
+    <p>To-Do Date & Time : {{item.todo_date}}<p>
+{% endblock %}

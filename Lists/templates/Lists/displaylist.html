@@ -4,10 +4,10 @@ List
 {% endblock %}
 {% block body %}
     <ul>
-    <a href="{% url 'list:additem' %}"><input type="submit" value="Add a new task"></a></br>
+    <a href="{% url 'Lists:addItem' slug=slugoflist %}"><input type="submit" value="Add a new task"></a></br>
     {% for item in list %}
         <li>
-            <h2>{{item.lists.title}}</h2>
+            <h2><a href="{% url 'Lists:showItem' slug1=item.slug slug=slugoflist %}">{{item.title}}</a></h2>
         </li>
     {% endfor %}
     </ul>

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Lists
+from .models import Lists,Item
 from django.contrib.auth.decorators import login_required
 from . import forms
 from django.http import HttpResponse
@@ -28,9 +28,32 @@ def createList(request):
 
 @login_required(login_url="accounts:login")
 def displayList(request,slug):
+    l=Lists.objects.filter(author=request.user,slug=slug)
     context={
-        'list':Lists.objects.filter(author=request.user, slug=slug)
+        'list':Item.objects.filter(author=request.user ,lists=l[0]),
+        'slugoflist':slug
     }
     return render(request,'Lists/displaylist.html',context)
-    # return HttpResponse(slug)
 
+@login_required(login_url="accounts:login")
+def showItem(request,slug,slug1):
+    l=Lists.objects.filter(author=request.user,slug=slug)
+    context={
+        'item':Item.objects.filter(author=request.user ,slug=slug1)[0],
+    }
+    return render(request,'Lists/showitem.html',context)
+    
+
+@login_required(login_url="accounts:login")
+def addItem(request,slug):
+    if request.method=='POST':
+        form=forms.AddItem(request.POST)
+        if form.is_valid():
+            instance=form.save(commit=False)
+            instance.author=request.user
+            instance.lists=Lists.objects.filter(author=request.user,slug=slug)[0]
+            instance.save()
+            return displayList(request,slug)
+    else:
+        form=forms.AddItem()
+    return render(request,'Lists/additem.html',{'form':form,'slugoflist':slug})
