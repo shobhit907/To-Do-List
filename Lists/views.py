@@ -28,18 +28,24 @@ def createList(request):
 
 @login_required(login_url="accounts:login")
 def displayList(request,slug):
-    l=Lists.objects.filter(author=request.user,slug=slug)
+    l=Lists.objects.get(author=request.user,slug=slug)
     context={
-        'list':Item.objects.filter(author=request.user ,lists=l[0]),
-        'slugoflist':slug
+        'list':Item.objects.filter(author=request.user ,lists=l),
+        'slugoflist':slug,
+        'listname':l.name,
     }
     return render(request,'Lists/displaylist.html',context)
 
 @login_required(login_url="accounts:login")
 def showItem(request,slug,slug1):
-    l=Lists.objects.filter(author=request.user,slug=slug)
+    try:
+        l=Lists.objects.get(author=request.user,slug=slug)
+        a=Item.objects.get(author=request.user ,slug=slug1,lists=l)
+    except:
+        a=None
     context={
-        'item':Item.objects.filter(author=request.user ,slug=slug1)[0],
+        'item':a,
+        'slugoflist':slug
     }
     return render(request,'Lists/showitem.html',context)
     
@@ -57,3 +63,14 @@ def addItem(request,slug):
     else:
         form=forms.AddItem()
     return render(request,'Lists/additem.html',{'form':form,'slugoflist':slug})
+
+
+@login_required(login_url="accounts:login")
+def deleteItem(request,slug,slug1):
+    try:
+        l=Lists.objects.get(author=request.user,slug=slug)
+        Item.objects.get(author=request.user,slug=slug1,lists=l).delete()
+        # item.delete()
+        return redirect("Lists:displayList",slug=slug)
+    except:
+        return HttpResponse("Error")

@@ -4,8 +4,13 @@ Task
 {% endblock %}
 {% block body %}
     <p>Task</p>
-    <h2>{{item.title}}</h2>
-    <p>{{item.description}}</p>
-    <p>Created Date & Time : {{item.created_date}}</p>
-    <p>To-Do Date & Time : {{item.todo_date}}<p>
+    {% if item %}
+        <a href="{% url 'Lists:deleteItem' slug=slugoflist slug1=item.slug %}"><input type="submit" value="Delete this task"></a>
+        <h2>{{item.title}}</h2>
+        <p>{{item.description}}</p>
+        <p>Created Date & Time : {{item.created_date}}</p>
+        <p>To-Do Date & Time : {{item.todo_date}}<p>
+    {% else %}
+        <p>Item Does not Exist</p>
+    {% endif %}
 {% endblock %}

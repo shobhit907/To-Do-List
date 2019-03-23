@@ -4,6 +4,7 @@ List
 {% endblock %}
 {% block body %}
     <ul>
+    <h3>{{listname}}</h3>
     <a href="{% url 'Lists:addItem' slug=slugoflist %}"><input type="submit" value="Add a new task"></a></br>
     {% for item in list %}
         <li>
