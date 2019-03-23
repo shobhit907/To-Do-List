@@ -12,7 +12,6 @@ class AddItem(forms.ModelForm):
         model=models.Item
         fields=['title','description','todo_date','slug']
 
-class AddUser(forms.ModelForm):
-    class Meta:
-        model=User
-        fields=['username']
+class AddUser(forms.Form):
+    username=forms.CharField(label='Enter username of the user you want to add',max_length=100)
+

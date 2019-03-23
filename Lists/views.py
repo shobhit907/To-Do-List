@@ -19,9 +19,9 @@ def createList(request):
     if request.method=='POST':
         form=forms.Lists(request.POST)
         if form.is_valid():
-            instance=form.save(commit=False)
-            instance.author=request.user
+            instance=form.save()
             instance.save()
+            instance.author.add(request.user)
             return redirect('Lists:showLists')
     else:
         form=forms.Lists()
@@ -81,11 +81,12 @@ def addUser(request,slug,slug1):
     if request.method=='POST':
         form=forms.AddUser(request.POST)
         if form.is_valid():
-            instance=form.save()
+            instance=request.POST
             l=Lists.objects.get(author=request.user,slug=slug)
             instance_item=Item.objects.get(author=request.user,lists=l,slug=slug1)
-            user_to_add=User.objects.get(username=instance.username)
+            user_to_add=User.objects.get(username=instance.get('username'))
             instance_item.author.add(user_to_add)
+            l.author.add(user_to_add)
             return redirect("Lists:displayList",slug=slug)
     else:
         form=forms.AddUser()

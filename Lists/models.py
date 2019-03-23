@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Lists(models.Model):
     name=models.CharField(max_length=400)
     slug=models.SlugField(blank=False)
-    author=models.ForeignKey(User,default=None,on_delete=True)
+    author=models.ManyToManyField(User,default=None)
     
     def __str__(self):
         return self.name
