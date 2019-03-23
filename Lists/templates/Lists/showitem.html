@@ -5,6 +5,7 @@ Task
 {% block body %}
     <p>Task</p>
     {% if item %}
+        <a href="{% url 'Lists:addUser' slug=slugoflist slug1=item.slug %}"><input type="submit" value="Add a User"></a>
         <a href="{% url 'Lists:deleteItem' slug=slugoflist slug1=item.slug %}"><input type="submit" value="Delete this task"></a>
         <h2>{{item.title}}</h2>
         <p>{{item.description}}</p>

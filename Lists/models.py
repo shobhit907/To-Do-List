@@ -15,7 +15,7 @@ class Item(models.Model):
     created_date=models.DateTimeField(auto_now_add=True)
     todo_date=models.DateTimeField(blank=True,null=True)
     slug=models.SlugField()
-    author=models.ForeignKey(User,default=None,on_delete=True)
+    author=models.ManyToManyField(User,default=None)
     lists=models.ForeignKey(Lists,on_delete=models.CASCADE,blank=False,default=None)
     
     def __str__(self):

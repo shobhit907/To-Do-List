@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^(?P<slug>[\w-]+)/$',views.displayList,name="displayList"),
     url(r'^(?P<slug>[\w-]+)/additem/',views.addItem,name="addItem"),
     url(r'^(?P<slug>[\w-]+)/(?P<slug1>[\w-]+)/$',views.showItem,name="showItem"),
+    url(r'^(?P<slug>[\w-]+)/(?P<slug1>[\w-]+)/adduser/$',views.addUser,name="addUser"),
     url(r'^(?P<slug>[\w-]+)/(?P<slug1>[\w-]+)/deleteitem/$',views.deleteItem,name="deleteItem"),
 ]
