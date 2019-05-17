@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'Lists',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'To_Do.urls'
 
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'homepage'
+
+SOCIAL_AUTH_URL_NAMESPACE = 'accounts:social'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -64,10 +70,19 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+ 'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+ 'social_core.backends.google.GoogleOpenId',  # for Google authentication
+ 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+ 'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'To_Do.wsgi.application'
 
@@ -114,6 +129,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='286033655470-toemp7ul0l0t8acui453ej56c693kr4k.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'wSihUzbO78QcWxW-_fvbJ3PF'
 
 
 # Static files (CSS, JavaScript, Images)

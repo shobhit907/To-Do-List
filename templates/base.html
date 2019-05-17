@@ -26,6 +26,8 @@
 		{% csrf_token %}
 	    <input type="submit" value="SignUp">
         </form>
+        <p><strong>-- OR --</strong></p>
+        <a href="{% url 'accounts:social:begin' 'google-oauth2' %}">Login with Google</a><br>
     {% endif %}
 	{% block body %}	  
 	{% endblock %}
